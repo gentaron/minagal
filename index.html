@@ -3,256 +3,477 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>イラストギャラリー</title>
+<title>イラストギャラリー | オリジナルヒロイン作品集</title>
+<meta name="description" content="青い髪のオリジナルヒロインを描いたイラストレーション作品集。荒野の対峙から未来都市まで、全15点を収録したギャラリーサイト。">
+<meta name="theme-color" content="#0b0b12">
+<meta property="og:type" content="website">
+<meta property="og:title" content="イラストギャラリー | オリジナルヒロイン作品集">
+<meta property="og:description" content="青い髪のオリジナルヒロインを描いたイラストレーション全15点のギャラリー。">
+<meta property="og:image" content="/images/full/illust-04.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" as="image" href="/images/thumb/illust-01.webp" fetchpriority="high">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "イラストギャラリー | オリジナルヒロイン作品集",
+  "description": "青い髪のオリジナルヒロインを描いたイラストレーション作品集(全15点)",
+  "inLanguage": "ja"
+}
+</script>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: "Helvetica Neue", Arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-    background: #0f0f0f;
-    color: #e0e0e0;
-    line-height: 1.6;
+  :root {
+    --bg: #0b0b12;
+    --bg-elev: #14141f;
+    --text: #e8e6f0;
+    --text-dim: #9a97ab;
+    --accent: #6c8cff;
+    --accent-warm: #ff5d5d;
+    --radius: 12px;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .45);
+    --ease: cubic-bezier(.22, 1, .36, 1);
+    color-scheme: dark;
   }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent); color: #fff; }
+
+  .skip-link {
+    position: absolute;
+    left: 8px;
+    top: -48px;
+    z-index: 2000;
+    padding: 10px 16px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: top .2s var(--ease);
+  }
+  .skip-link:focus { top: 8px; }
+
+  /* ---------- Header ---------- */
   header {
-    padding: 60px 20px 30px;
+    position: relative;
+    padding: clamp(64px, 12vh, 120px) 24px clamp(40px, 7vh, 72px);
     text-align: center;
-    background: linear-gradient(180deg, #1a1a2e 0%, #0f0f0f 100%);
+    overflow: hidden;
+    background:
+      radial-gradient(1200px 500px at 50% -10%, rgba(108, 140, 255, .18), transparent 65%),
+      radial-gradient(800px 400px at 85% 10%, rgba(255, 93, 93, .08), transparent 60%),
+      var(--bg);
+  }
+  header::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232, 230, 240, .18), transparent);
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: .78rem;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
   }
   header h1 {
-    font-size: 2.2rem;
-    font-weight: 300;
-    letter-spacing: 0.15em;
+    font-size: clamp(1.7rem, 4.5vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: .14em;
     color: #fff;
   }
-  header p {
-    color: #888;
-    margin-top: 6px;
-    font-size: 0.95rem;
+  header .lede {
+    max-width: 42em;
+    margin: 16px auto 0;
+    color: var(--text-dim);
+    font-size: clamp(.9rem, 1.6vw, 1rem);
   }
-  .gallery {
-    column-count: 3;
-    column-gap: 16px;
-    max-width: 1400px;
-    margin: 30px auto;
-    padding: 0 20px 80px;
+  .stats {
+    margin-top: 22px;
+    font-size: .82rem;
+    letter-spacing: .12em;
+    color: var(--text-dim);
   }
-  .gallery-item {
+  .stats strong { color: var(--text); font-weight: 600; }
+
+  /* ---------- Gallery ---------- */
+  main { max-width: 1440px; margin: 0 auto; padding: clamp(28px, 5vh, 56px) 20px 90px; }
+  .gallery { column-count: 3; column-gap: 18px; }
+  @media (max-width: 1000px) { .gallery { column-count: 2; } }
+  @media (max-width: 560px)  { .gallery { column-count: 1; column-gap: 0; } }
+
+  .item {
     break-inside: avoid;
-    margin-bottom: 16px;
-    cursor: pointer;
-    border-radius: 10px;
+    margin-bottom: 18px;
+    border-radius: var(--radius);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    background: #1a1a1a;
+    background: var(--bg-elev);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .35);
+    transition: transform .45s var(--ease), box-shadow .45s var(--ease);
   }
-  .gallery-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.5);
-  }
-  .gallery-item img {
-    width: 100%;
+  .item:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+  .item a {
     display: block;
-    transition: opacity 0.3s ease;
+    position: relative;
+    color: inherit;
+    text-decoration: none;
+    outline-offset: -3px;
   }
-  .gallery-item .caption {
+  .item a:focus-visible { outline: 3px solid var(--accent); border-radius: var(--radius); }
+  .item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #191924;
+  }
+  .item figcaption {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 40px 14px 10px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+    inset: auto 0 0;
+    padding: 48px 16px 12px;
+    background: linear-gradient(transparent, rgba(5, 5, 12, .82));
+    font-size: .85rem;
+    letter-spacing: .06em;
     color: #fff;
-    font-size: 0.8rem;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transform: translateY(6px);
+    transition: opacity .35s var(--ease), transform .35s var(--ease);
     pointer-events: none;
   }
-  .gallery-item:hover .caption {
-    opacity: 1;
+  .item figcaption .num {
+    display: block;
+    font-size: .68rem;
+    letter-spacing: .3em;
+    color: var(--accent);
+    margin-bottom: 2px;
   }
+  .item a:hover figcaption,
+  .item a:focus-visible figcaption { opacity: 1; transform: none; }
 
-  /* Lightbox */
-  .lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.92);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
+  /* Scroll reveal (JS adds .reveal; no-JS stays fully visible) */
+  .js .item { opacity: 0; transform: translateY(24px); }
+  .js .item.reveal { opacity: 1; transform: none; transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .js .item.reveal:hover { transform: translateY(-5px); }
+
+  /* ---------- Lightbox (native <dialog>) ---------- */
+  dialog.lightbox {
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--text);
+    overflow: hidden;
+  }
+  dialog.lightbox::backdrop { background: rgba(4, 4, 10, .93); backdrop-filter: blur(6px); }
+  .lb-stage {
+    width: 100%;
+    height: 100%;
+    display: flex;
     flex-direction: column;
-    padding: 40px;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(16px, 4vw, 48px);
+    touch-action: pan-y;
   }
-  .lightbox.active {
-    display: flex;
-  }
-  .lightbox img {
+  .lb-stage img {
     max-width: 100%;
-    max-height: 85vh;
+    max-height: calc(100dvh - 150px);
     object-fit: contain;
-    border-radius: 6px;
-    box-shadow: 0 4px 40px rgba(0,0,0,0.6);
+    border-radius: 8px;
+    box-shadow: 0 8px 60px rgba(0, 0, 0, .7);
+    opacity: 1;
+    transition: opacity .25s ease;
   }
-  .lightbox .lb-caption {
-    margin-top: 16px;
-    color: #aaa;
-    font-size: 0.9rem;
-  }
-  .lightbox .lb-counter {
+  .lb-stage img.loading { opacity: .25; }
+  .lb-meta { margin-top: 16px; text-align: center; }
+  .lb-meta .lb-title { font-size: .95rem; letter-spacing: .1em; color: #fff; }
+  .lb-meta .lb-counter { margin-top: 4px; font-size: .78rem; letter-spacing: .25em; color: var(--text-dim); }
+
+  .lb-btn {
     position: fixed;
-    bottom: 30px;
-    color: #666;
-    font-size: 0.85rem;
-  }
-  .lightbox .close,
-  .lightbox .prev,
-  .lightbox .next {
-    position: fixed;
-    background: rgba(255,255,255,0.06);
-    border: none;
-    color: #fff;
-    cursor: pointer;
+    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s;
-  }
-  .lightbox .close:hover,
-  .lightbox .prev:hover,
-  .lightbox .next:hover {
-    background: rgba(255,255,255,0.15);
-  }
-  .lightbox .close {
-    top: 20px;
-    right: 24px;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(255, 255, 255, .12);
     border-radius: 50%;
-    font-size: 1.6rem;
+    background: rgba(255, 255, 255, .06);
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
   }
-  .lightbox .prev,
-  .lightbox .next {
-    top: 50%;
-    transform: translateY(-50%);
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    font-size: 1.8rem;
+  .lb-btn:hover, .lb-btn:focus-visible { background: rgba(255, 255, 255, .16); border-color: rgba(255, 255, 255, .3); }
+  .lb-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .lb-close { top: 18px; right: 18px; }
+  .lb-prev { left: 16px; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 16px; top: 50%; transform: translateY(-50%); }
+  @media (max-width: 560px) {
+    .lb-prev, .lb-next { width: 42px; height: 42px; }
+    .lb-prev { left: 8px; }
+    .lb-next { right: 8px; }
   }
-  .lightbox .prev { left: 20px; }
-  .lightbox .next { right: 20px; }
 
-  @media (max-width: 900px) {
-    .gallery { column-count: 2; }
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 40px 24px 56px;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: .82rem;
+    letter-spacing: .08em;
+    border-top: 1px solid rgba(232, 230, 240, .08);
   }
-  @media (max-width: 500px) {
-    .gallery { column-count: 1; }
-    header h1 { font-size: 1.6rem; }
-    .lightbox { padding: 16px; }
-    .lightbox .prev { left: 8px; width: 40px; height: 40px; }
-    .lightbox .next { right: 8px; width: 40px; height: 40px; }
+  footer .heart { color: var(--accent-warm); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .js .item { opacity: 1; transform: none; }
   }
 </style>
 </head>
 <body>
-<header>
-  <h1>イラストギャラリー</h1>
-  <p>イラストレーション作品集</p>
-</header>
-<div class="gallery" id="gallery"></div>
+<a class="skip-link" href="#gallery">ギャラリーへスキップ</a>
 
-<div class="lightbox" id="lightbox">
-  <button class="close" id="lbClose">&times;</button>
-  <button class="prev" id="lbPrev">&#8249;</button>
-  <button class="next" id="lbNext">&#8250;</button>
-  <img id="lbImage" src="" alt="">
-  <div class="lb-caption" id="lbCaption"></div>
-  <div class="lb-counter" id="lbCounter"></div>
-</div>
+<header>
+  <p class="eyebrow">Illustration Gallery</p>
+  <h1>イラストギャラリー</h1>
+  <p class="lede">青い髪のヒロインが駆け抜ける、15の情景。荒野の静寂から未来都市の疾走まで——オリジナルイラストレーション作品集。</p>
+  <p class="stats"><strong>15</strong> WORKS &middot; <strong>2026</strong></p>
+</header>
+
+<main>
+  <div class="gallery" id="gallery">
+    <figure class="item">
+      <a href="images/full/illust-01.webp" data-title="荒野の対峙" data-w="1774" data-h="887">
+        <img src="images/thumb/illust-01.webp" width="720" height="360" alt="荒廃した大地で、跪く異形の獣と静かに向き合うヒロイン" fetchpriority="high" decoding="async">
+        <figcaption><span class="num">01</span>荒野の対峙</figcaption>
+      </a>
+    </figure>
+    <figure class="item">
+      <a href="images/full/illust-02.webp" data-title="邂逅" data-w="1536" data-h="1024">
+        <img src="images/thumb/illust-02.webp" width="720" height="480" alt="曇天の田舎道で、昆虫型の異星人と向かい合うヒロインの後ろ姿" decoding="async">
+        <figcaption><span class="num">02</span>邂逅</figcaption>
+      </a>
+    </figure>
+    <figure class="item">
+      <a href="images/full/illust-03.webp" data-title="瓦礫を持ち上げて" data-w="1672" data-h="941">
+        <img src="images/thumb/illust-03.webp" width="720" height="405" alt="崩落した建物の瓦礫を両腕で持ち上げ、下敷きになった人を助けるヒロイン" decoding="async">
+        <figcaption><span class="num">03</span>瓦礫を持ち上げて</figcaption>
+      </a>
+    </figure>
+    <figure class="item">
+      <a href="images/full/illust-04.webp" data-title="反撃の拳" data-w="1254" data-h="1254">
+        <img src="images/thumb/illust-04.webp" width="720" height="720" alt="破片を散らしながら赤い手袋の拳を突き出すヒロインのクローズアップ" decoding="async">
+        <figcaption><span class="num">04</span>反撃の拳</figcaption>
+      </a>
+    </figure>
+    <figure class="item">
+      <a href="images/full/illust-05.webp" data-title="力の解放" data-w="1024" data-h="1536">
+        <img src="images/thumb/illust-05.webp" width="720" height="1080" alt="夜の渓谷で両手から青いエネルギーの渦を放つヒロイン" decoding="async">
+        <figcaption><span class="num">05</span>力の解放</figcaption>
+      </a>
+    </figure>
+    <figure class="item">
+      <a href="images/full/illust-06.webp" data-title="巨影との対峙" data-w="1774" data-h="887">
+        <img src="images/thumb/illust-06.webp" width="720" height="360" alt="晴れた都市の交差点で、巨大な黒い怪物と睨み合うヒロイン" loading="lazy" decoding="async">
+        <figcaption><span class="num">06</span>巨影との対峙</figcaption>
+      </a>
+    </figure>
+    <figure class="item">
+      <a href="images/full/illust-07.webp" data-title="都市の勝者" data-w="1774" data-h="887">
+        <img src="images/thumb/illust-07.webp" width="720" height="360" alt="倒した黒い怪物に足をかけ、ビル街に立つヒロイン" loading="lazy" decoding="async">
+        <figcaption><span class="num">07</span>都市の勝者</figcaption>
+      </a>
+    </figure>
+    <figure class="item">
+      <a href="images/full/illust-08.webp" data-title="激突" data-w="1774" data-h="887">
+        <img src="images/thumb/illust-08.webp" width="720" height="360" alt="崩壊するビル街で、赤い眼の機械の怪物に拳を打ち込むヒロイン" loading="lazy" decoding="async">
+        <figcaption><span class="num">08</span>激突</figcaption>
+      </a>
+    </figure>
+    <figure class="item">
+      <a href="images/full/illust-09.webp" data-title="制圧" data-w="1774" data-h="887">
+        <img src="images/thumb/illust-09.webp" width="720" height="360" alt="燃える廃墟で、赤い単眼の機械を踏み伏せるヒロイン" loading="lazy" decoding="async">
+        <figcaption><span class="num">09</span>制圧</figcaption>
+      </a>
+    </figure>
+    <figure class="item">
+      <a href="images/full/illust-10.webp" data-title="静かな朝" data-w="1774" data-h="887">
+        <img src="images/thumb/illust-10.webp" width="720" height="360" alt="白いカーテンの部屋で、傷の手当てをした姿で静かに佇むヒロイン" loading="lazy" decoding="async">
+        <figcaption><span class="num">10</span>静かな朝</figcaption>
+      </a>
+    </figure>
+    <figure class="item">
+      <a href="images/full/illust-11.webp" data-title="街を守る者" data-w="1774" data-h="887">
+        <img src="images/thumb/illust-11.webp" width="720" height="360" alt="暴走するトラックを素手で受け止め、背後の市民を守るヒロイン" loading="lazy" decoding="async">
+        <figcaption><span class="num">11</span>街を守る者</figcaption>
+      </a>
+    </figure>
+    <figure class="item">
+      <a href="images/full/illust-12.webp" data-title="未来都市を駆ける" data-w="1774" data-h="887">
+        <img src="images/thumb/illust-12.webp" width="720" height="360" alt="ローラーブレードで未来都市の光る街路を滑走するヒロイン" loading="lazy" decoding="async">
+        <figcaption><span class="num">12</span>未来都市を駆ける</figcaption>
+      </a>
+    </figure>
+    <figure class="item">
+      <a href="images/full/illust-13.webp" data-title="出動前" data-w="941" data-h="1672">
+        <img src="images/thumb/illust-13.webp" width="720" height="1279" alt="支度部屋で出動の準備をするヒロインの後ろ姿" loading="lazy" decoding="async">
+        <figcaption><span class="num">13</span>出動前</figcaption>
+      </a>
+    </figure>
+    <figure class="item">
+      <a href="images/full/illust-14.webp" data-title="スタンバイ" data-w="887" data-h="1774">
+        <img src="images/thumb/illust-14.webp" width="720" height="1440" alt="ピースサインを掲げたヒロインの全身ポートレート" loading="lazy" decoding="async">
+        <figcaption><span class="num">14</span>スタンバイ</figcaption>
+      </a>
+    </figure>
+    <figure class="item">
+      <a href="images/full/illust-15.webp" data-title="着地" data-w="1774" data-h="887">
+        <img src="images/thumb/illust-15.webp" width="720" height="360" alt="砂煙を上げながら屋上に片膝で着地するヒロイン" loading="lazy" decoding="async">
+        <figcaption><span class="num">15</span>着地</figcaption>
+      </a>
+    </figure>
+  </div>
+</main>
+
+<dialog class="lightbox" id="lightbox" aria-label="イラスト拡大表示">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="閉じる">&times;</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="前の作品">&#8249;</button>
+  <button class="lb-btn lb-next" id="lbNext" aria-label="次の作品">&#8250;</button>
+  <div class="lb-stage" id="lbStage">
+    <img id="lbImage" src="" alt="">
+    <div class="lb-meta">
+      <p class="lb-title" id="lbTitle"></p>
+      <p class="lb-counter" id="lbCounter" aria-live="polite"></p>
+    </div>
+  </div>
+</dialog>
+
+<footer>
+  <p>&copy; 2026 イラストギャラリー &middot; Made with <span class="heart" aria-hidden="true">&#10084;</span></p>
+</footer>
 
 <script>
-const imageFiles = [
-  { src: "ChatGPT Image Jul 8, 2026, 09_18_20 AM.png", alt: "Illustration 01" },
-  { src: "ChatGPT Image Jul 8, 2026, 09_18_28 AM.png", alt: "Illustration 02" },
-  { src: "ChatGPT Image Jul 8, 2026, 09_18_39 AM.png", alt: "Illustration 03" },
-  { src: "ChatGPT Image Jul 8, 2026, 09_18_57 AM.png", alt: "Illustration 04" },
-  { src: "ChatGPT Image Jul 8, 2026, 09_19_08 AM.png", alt: "Illustration 05" },
-  { src: "ChatGPT Image Jul 8, 2026, 09_19_26 AM.png", alt: "Illustration 06" },
-  { src: "ChatGPT Image Jul 8, 2026, 09_19_33 AM.png", alt: "Illustration 07" },
-  { src: "ChatGPT Image Jul 8, 2026, 09_20_13 AM.png", alt: "Illustration 08" },
-  { src: "ChatGPT Image Jul 8, 2026, 09_20_22 AM.png", alt: "Illustration 09" },
-  { src: "ChatGPT Image Jul 8, 2026, 09_20_28 AM.png", alt: "Illustration 10" },
-  { src: "ChatGPT Image Jul 8, 2026, 09_20_38 AM.png", alt: "Illustration 11" },
-  { src: "ChatGPT Image Jul 8, 2026, 09_20_45 AM.png", alt: "Illustration 12" },
-  { src: "ChatGPT Image Jul 9, 2026, 12_03_34 AM.png", alt: "Illustration 13" },
-  { src: "ChatGPT Image Jul 9, 2026, 12_03_44 AM.png", alt: "Illustration 14" },
-  { src: "ChatGPT Image Jul 9, 2026, 12_03_57 AM.png", alt: "Illustration 15" },
-];
+(() => {
+  'use strict';
+  document.documentElement.classList.add('js');
 
-const gallery = document.getElementById('gallery');
-const lb = document.getElementById('lightbox');
-const lbImg = document.getElementById('lbImage');
-const lbCaption = document.getElementById('lbCaption');
-const lbCounter = document.getElementById('lbCounter');
-let currentIndex = 0;
+  const links = Array.from(document.querySelectorAll('.item a'));
+  const works = links.map(a => ({
+    full: a.getAttribute('href'),
+    title: a.dataset.title,
+    alt: a.querySelector('img').alt,
+    w: a.dataset.w,
+    h: a.dataset.h,
+  }));
 
-function renderGallery() {
-  gallery.innerHTML = '';
-  imageFiles.forEach((img, i) => {
-    const div = document.createElement('div');
-    div.className = 'gallery-item';
-    div.innerHTML = `<img src="${img.src}" alt="${img.alt}" loading="lazy"><div class="caption">${img.alt}</div>`;
-    div.addEventListener('click', () => openLightbox(i));
-    gallery.appendChild(div);
+  /* ---- Scroll reveal ---- */
+  const items = document.querySelectorAll('.item');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('reveal'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    items.forEach(el => io.observe(el));
+  } else {
+    items.forEach(el => el.classList.add('reveal'));
+  }
+
+  /* ---- Lightbox ---- */
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImage');
+  const lbTitle = document.getElementById('lbTitle');
+  const lbCounter = document.getElementById('lbCounter');
+  const lbStage = document.getElementById('lbStage');
+  let current = 0;
+  let opener = null;
+
+  function preload(i) {
+    const idx = (i + works.length) % works.length;
+    new Image().src = works[idx].full;
+  }
+
+  function show(i) {
+    current = (i + works.length) % works.length;
+    const work = works[current];
+    lbImg.classList.add('loading');
+    lbImg.onload = () => lbImg.classList.remove('loading');
+    lbImg.src = work.full;
+    lbImg.alt = work.alt;
+    lbTitle.textContent = work.title;
+    lbCounter.textContent = `${current + 1} / ${works.length}`;
+    preload(current + 1);
+    preload(current - 1);
+  }
+
+  function open(i, openerEl) {
+    opener = openerEl;
+    show(i);
+    lb.showModal();
+    document.body.style.overflow = 'hidden';
+  }
+
+  lb.addEventListener('close', () => {
+    document.body.style.overflow = '';
+    lbImg.src = '';
+    if (opener) opener.focus();
   });
-}
 
-function openLightbox(index) {
-  currentIndex = index;
-  updateLightbox();
-  lb.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
+  links.forEach((a, i) => {
+    a.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return; // respect open-in-new-tab
+      e.preventDefault();
+      open(i, a);
+    });
+  });
 
-function updateLightbox() {
-  const img = imageFiles[currentIndex];
-  lbImg.src = img.src;
-  lbImg.alt = img.alt;
-  lbCaption.textContent = img.alt;
-  lbCounter.textContent = `${currentIndex + 1} / ${imageFiles.length}`;
-}
+  document.getElementById('lbClose').addEventListener('click', () => lb.close());
+  document.getElementById('lbPrev').addEventListener('click', () => show(current - 1));
+  document.getElementById('lbNext').addEventListener('click', () => show(current + 1));
 
-function closeLightbox() {
-  lb.classList.remove('active');
-  document.body.style.overflow = '';
-}
+  lb.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); show(current - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+  });
 
-function prevImage() {
-  currentIndex = (currentIndex - 1 + imageFiles.length) % imageFiles.length;
-  updateLightbox();
-}
+  // Close when clicking the backdrop / empty stage area
+  lb.addEventListener('click', (e) => {
+    if (e.target === lb || e.target === lbStage) lb.close();
+  });
 
-function nextImage() {
-  currentIndex = (currentIndex + 1) % imageFiles.length;
-  updateLightbox();
-}
-
-document.getElementById('lbClose').addEventListener('click', closeLightbox);
-document.getElementById('lbPrev').addEventListener('click', prevImage);
-document.getElementById('lbNext').addEventListener('click', nextImage);
-
-document.addEventListener('keydown', (e) => {
-  if (!lb.classList.contains('active')) return;
-  if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowLeft') prevImage();
-  if (e.key === 'ArrowRight') nextImage();
-});
-
-lb.addEventListener('click', (e) => {
-  if (e.target === lb) closeLightbox();
-});
-
-renderGallery();
+  // Touch swipe
+  let touchX = null, touchY = null;
+  lbStage.addEventListener('touchstart', (e) => {
+    touchX = e.changedTouches[0].clientX;
+    touchY = e.changedTouches[0].clientY;
+  }, { passive: true });
+  lbStage.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    const dy = e.changedTouches[0].clientY - touchY;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      show(dx < 0 ? current + 1 : current - 1);
+    }
+    touchX = touchY = null;
+  }, { passive: true });
+})();
 </script>
 </body>
 </html>
