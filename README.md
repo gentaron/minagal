@@ -50,3 +50,17 @@ python3 -m http.server 8000
 - JS 無効環境でも全作品閲覧可能(プログレッシブエンハンスメント)
 - アクセシビリティ対応(altテキスト、スキップリンク、`prefers-reduced-motion`)
 - OGP / 構造化データ / セキュリティヘッダー設定済み
+
+<!-- ecosystem:begin (自動生成: gentaron/infocollect の ecosystem/registry.json から。手で直さない) -->
+
+## つながり
+
+gentaron のリポジトリ群のうち **遊びと実験** の一つ。青い髪のヒロインのイラストギャラリー。
+
+- **受け取る**: [image](https://github.com/gentaron/image)（キャラクターアート）
+- **同じ島**: [fpsgame](https://github.com/gentaron/fpsgame)、[1million](https://github.com/gentaron/1million)、[hennanotes](https://github.com/gentaron/hennanotes)、[game-of-mina](https://github.com/gentaron/game-of-mina)、[OCAI](https://github.com/gentaron/OCAI)
+- **前身**: [dreamy-image-gallery-paradise](https://github.com/gentaron/dreamy-image-gallery-paradise)
+
+全体の地図 → [ecosystem](https://github.com/gentaron/infocollect/blob/HEAD/ecosystem/README.md)
+
+<!-- ecosystem:end -->
